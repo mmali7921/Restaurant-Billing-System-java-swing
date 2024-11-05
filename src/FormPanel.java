@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.io.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ public class FormPanel extends JPanel implements ActionListener {
     private JButton submitBtn;
     private JButton checkOut;
     private JList burgerList;
+    private JButton printSaveBtn;
+    private JButton clearBtn;
     private Burger userSelected;
     private int maxToppings;
     ArrayList<JCheckBox> burgerToppings = new ArrayList();
@@ -37,6 +40,14 @@ public class FormPanel extends JPanel implements ActionListener {
         checkOut.addActionListener(this);
         checkOut.setEnabled(false);
 
+        printSaveBtn = new JButton("Print/Save Bill"); // Initialize print/save button
+        printSaveBtn.addActionListener(this);
+        printSaveBtn.setEnabled(false); // Initially disabled
+
+        clearBtn = new JButton("Clear"); // Initialize clear button
+        clearBtn.addActionListener(this);
+        clearBtn.setEnabled(false); // Initially disabled
+
         burgerList = new JList();
         DefaultListModel burgerModel = new DefaultListModel();
 
@@ -60,11 +71,7 @@ public class FormPanel extends JPanel implements ActionListener {
                             checked++;
                         }
                     }
-                    if (checked == maxToppings){
-                        for (JCheckBox check:burgerToppings) {
-                            check.setEnabled(false);
-                        }
-                    }
+
                     check.setEnabled(false);
                     for (int i = 0; i < burgerToppings.size(); i++) {
                         if(check == burgerToppings.get(i)){
@@ -115,6 +122,13 @@ public class FormPanel extends JPanel implements ActionListener {
                     formListener.formEventTrigger(fe);
                 }
                 checkOut.setEnabled(false);
+                break;
+            case "Print/Save Bill":
+                saveBillToFile();
+                clearInputs(); // Clear inputs after saving
+                break;
+            case "Clear":
+                clearInputs();
                 break;
 
             default:break;
@@ -180,6 +194,17 @@ public class FormPanel extends JPanel implements ActionListener {
         add(checkOut,gc);
 
 
+        // Add print/save button
+        gc.gridy++;
+        add(printSaveBtn, gc); // Place print/save button next to checkout
+
+        // Add clear button
+        // Reset gridx for the clear button
+        gc.gridy++;   // Move to the next row
+
+        add(clearBtn, gc); // Add clear button below the print/save button
+
+
 
     }
 
@@ -204,6 +229,34 @@ public class FormPanel extends JPanel implements ActionListener {
         burgerToppings.add(greenPepper);
         burgerToppings.add(olives);
 
+    }
+    private void saveBillToFile() {
+        // Here you can implement the logic to generate and save the bill
+        String billContent = "Bill for: " + userSelected.getName() + "\n";
+        billContent += "Toppings: ";
+        for (JCheckBox checkBox : burgerToppings) {
+            if (checkBox.isSelected()) {
+                billContent += checkBox.getText() + " ";
+            }
+        }
+        billContent += "\nTotal Price: $" + userSelected.getPrice();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("bill.txt"))) {
+            writer.write(billContent);
+            JOptionPane.showMessageDialog(this, "Bill saved to bill.txt");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void clearInputs() {
+        burgerList.setSelectedIndex(-1);
+        for (JCheckBox checkBox : burgerToppings) {
+            checkBox.setSelected(false);
+            checkBox.setEnabled(false);
+        }
+        submitBtn.setEnabled(true);
+        burgerList.setEnabled(true);
+        checkOut.setEnabled(false);
     }
 
 }
