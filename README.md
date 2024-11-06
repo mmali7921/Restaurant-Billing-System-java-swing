@@ -1,24 +1,64 @@
-# Restaurant Billing System
+# McDonald's Burger Billing System
 
-## Project Overview
-
-The Restaurant Billing System is a Java Swing application designed to simplify the ordering and billing process for a restaurant. This application allows users to select different types of burgers, customize their orders with various toppings, and generate a bill. Users can also save their bills to a file and clear their selections for new orders.
+A simple burger ordering and billing system using Java Swing and SQLite. This application allows users to select a burger, customize it with toppings, and generate a bill. The system also saves the billing details in a local SQLite database.
 
 ## Features
 
-- **Burger Selection**: Choose from a variety of burgers (Basic, Healthy, Deluxe).
-- **Toppings Customization**: Add or remove toppings from your burger.
-- **Bill Generation**: Automatically generates a bill based on the selected burger and toppings.
-- **Save Bill to File**: Save the generated bill to a text file for future reference.
-- **Clear Inputs**: Reset all selections and the bill for a new order.
-- **User-Friendly Interface**: Intuitive GUI designed using Java Swing.
+- **Burger Selection**: Users can choose from a list of available burgers.
+- **Topping Customization**: Users can select multiple toppings for their burgers.
+- **Checkout**: After selecting the burger and toppings, users can proceed to checkout and view the total.
+- **Bill Generation**: The bill, including the total price and selected toppings, is displayed and saved to an SQLite database.
+- **Clear Form**: Users can reset the form to start a new order.
+- **SQLite Integration**: Bills are stored in an SQLite database for persistence.
 
 ## Technologies Used
 
-- Java
-- Java Swing
-- Object-Oriented Programming (OOP) principles
-- Basic file handling for saving bills
+- **Java Swing**: Used for building the graphical user interface (GUI).
+- **SQLite**: Used for storing and retrieving billing information.
+- **Java**: Core language for application logic and database interaction.
+
+## Getting Started
+
+To run this project locally, follow the steps below:
+
+### Prerequisites
+
+- **Java 8 or higher**: Ensure that you have Java installed on your system.
+- **SQLite**: The project uses SQLite for database operations. You do not need to install SQLite manually, as the database is created automatically.
+
+### Installation
+
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/yourusername/burger-billing-system.git
+    cd burger-billing-system
+    ```
+
+2. **Set up the project in your IDE** (e.g., IntelliJ IDEA, Eclipse).
+
+3. **Build and run the project**: You can now run the project directly from your IDE. The application should open with a GUI where you can select burgers, toppings, and view the generated bill.
+
+## Usage
+
+1. **Select a Burger**: From the available list, choose a burger.
+2. **Select Toppings**: Customize your burger by selecting the desired toppings.
+3. **Checkout**: After making the selections, click on "Checkout" to view the total and save the bill.
+4. **Print/Save Bill**: The system will save the bill in the SQLite database for later reference.
+
+## Database Schema
+
+The project uses a SQLite database to store billing information. The table schema is as follows:
+
+```sql
+CREATE TABLE IF NOT EXISTS bills (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    burger_name TEXT,
+    toppings TEXT,
+    price REAL,
+    net_total REAL
+);
+
 
 ## Installation
 
