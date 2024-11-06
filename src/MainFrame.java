@@ -27,6 +27,9 @@ public class MainFrame extends JFrame {
             Bill bill = new Bill(userSelection);
             textPanel.appendText(bill.generateReceipt());
         });
+        formPanel.resetForm(n -> textPanel.clearText());
+
+
 
         add(formPanel, BorderLayout.WEST);
         add(toolbar, BorderLayout.NORTH);

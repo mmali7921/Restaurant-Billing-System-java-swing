@@ -11,6 +11,10 @@ public class Topping {
         return price;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return String.format("%s : $%.2f\n", this.name, this.price);

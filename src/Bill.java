@@ -9,6 +9,7 @@ public class Bill {
         double total = calculateTotal(this.burger);
         double tax = total * 0.15;
         double netTotal = total + tax;
+        // No need to save the bill here anymore
         return String.format("\nAmount: $%.2f  + (Tax: $%.2f)\nTotal Bill: $%.2f\n", total, tax, netTotal);
     }
 
