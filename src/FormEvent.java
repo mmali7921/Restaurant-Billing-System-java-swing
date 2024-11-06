@@ -12,6 +12,7 @@ public class FormEvent extends EventObject {
         this.userSelected = userSelected;
     }
 
+
     public Burger getUserSelected() {
         return userSelected;
     }

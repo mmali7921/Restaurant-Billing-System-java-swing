@@ -6,6 +6,11 @@ import java.io.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public class FormPanel extends JPanel implements ActionListener {
 
@@ -22,6 +27,10 @@ public class FormPanel extends JPanel implements ActionListener {
 
 
     FormPanel(){
+
+
+            createTable(); // Ensures the 'bills' table is created
+
         Dimension dimension = getPreferredSize();
         dimension.width = 490;
         setPreferredSize(dimension);
@@ -84,9 +93,24 @@ public class FormPanel extends JPanel implements ActionListener {
         }
         componentLayout();
     }
+    private Connection connect() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:billing.db";
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
 
     public void setFormListener(FormListener formListener) {
         this.formListener = formListener;
+    }
+    public void resetForm(ActionListener actionListener) {
+        printSaveBtn.addActionListener(actionListener);
+        clearBtn.addActionListener(actionListener);
     }
 
     @Override
@@ -125,12 +149,15 @@ public class FormPanel extends JPanel implements ActionListener {
                 printSaveBtn.setEnabled(true);
                 break;
             case "Print/Save Bill":
-                saveBillToFile();
-                clearInputs();// Clear inputs after saving
+
+                saveBillToDatabase();
+                clearInputs();//// Clear inputs after saving
                 printSaveBtn.setEnabled(false); // Disable the print/save button after saving
                 break;
             case "Clear":
                 clearInputs();
+
+
                 break;
 
             default:break;
@@ -232,25 +259,43 @@ public class FormPanel extends JPanel implements ActionListener {
         burgerToppings.add(olives);
 
     }
-    private void saveBillToFile() {
-        // Here you can implement the logic to generate and save the bill
-
-        String billContent = "Bill for: " + userSelected.getName() + "\n";
-        billContent += "Toppings: ";
+    private void saveBillToDatabase() {
+        // Calculate the total and netTotal (including tax)
+        double total = userSelected.getPrice();
         for (JCheckBox checkBox : burgerToppings) {
             if (checkBox.isSelected()) {
-                billContent += checkBox.getText() + " ";
+                total += Fridge.prepareToppings().get(burgerToppings.indexOf(checkBox)).getPrice();
             }
         }
-        billContent += "\nTotal Price: $" + userSelected.getPrice();
+        double tax = total * 0.15;
+        double netTotal = total + tax;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("bill.txt"))) {
-            writer.write(billContent);
-            JOptionPane.showMessageDialog(this, "Bill saved to bill.txt");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        String sql = "INSERT INTO bills(burger_name, toppings, price, net_total) VALUES(?, ?, ?, ?)";
+
+        StringBuilder toppings = new StringBuilder();
+        for (JCheckBox checkBox : burgerToppings) {
+            if (checkBox.isSelected()) {
+                toppings.append(checkBox.getText()).append(", ");
+            }
+        }
+        if (toppings.length() > 0) {
+            toppings.setLength(toppings.length() - 2); // Remove last comma and space
+        }
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userSelected.getName());
+            pstmt.setString(2, toppings.toString());
+            pstmt.setDouble(3, userSelected.getPrice());
+            pstmt.setDouble(4, netTotal); // Save the netTotal
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Bill saved to SQLite database");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
+
+
     private void clearInputs() {
         burgerList.setSelectedIndex(-1);
         for (JCheckBox checkBox : burgerToppings) {
@@ -261,5 +306,23 @@ public class FormPanel extends JPanel implements ActionListener {
         burgerList.setEnabled(true);
         checkOut.setEnabled(false);
     }
+
+    private void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS bills (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "burger_name TEXT," +
+                "toppings TEXT," +
+                "price REAL," +
+                "net_total REAL)";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
 
 }
