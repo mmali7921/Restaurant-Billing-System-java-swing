@@ -46,7 +46,7 @@ public class FormPanel extends JPanel implements ActionListener {
 
         clearBtn = new JButton("Clear"); // Initialize clear button
         clearBtn.addActionListener(this);
-        clearBtn.setEnabled(false); // Initially disabled
+        clearBtn.setEnabled(true); // Initially disabled
 
         burgerList = new JList();
         DefaultListModel burgerModel = new DefaultListModel();
@@ -122,10 +122,12 @@ public class FormPanel extends JPanel implements ActionListener {
                     formListener.formEventTrigger(fe);
                 }
                 checkOut.setEnabled(false);
+                printSaveBtn.setEnabled(true);
                 break;
             case "Print/Save Bill":
                 saveBillToFile();
-                clearInputs(); // Clear inputs after saving
+                clearInputs();// Clear inputs after saving
+                printSaveBtn.setEnabled(false); // Disable the print/save button after saving
                 break;
             case "Clear":
                 clearInputs();
@@ -232,6 +234,7 @@ public class FormPanel extends JPanel implements ActionListener {
     }
     private void saveBillToFile() {
         // Here you can implement the logic to generate and save the bill
+
         String billContent = "Bill for: " + userSelected.getName() + "\n";
         billContent += "Toppings: ";
         for (JCheckBox checkBox : burgerToppings) {
