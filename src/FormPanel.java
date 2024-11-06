@@ -129,21 +129,30 @@ public class FormPanel extends JPanel implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else{
+                    // Reset toppings before selecting a new burger
                     userSelected = (Burger) burgerList.getSelectedValue();
+                    userSelected.clearToppings();  // Clear any previously selected toppings
 
                     submitBtn.setEnabled(false);
                     burgerList.setEnabled(false);
+
+                    // Enable toppings for selection
                     for (JCheckBox checkBox: burgerToppings){
                         checkBox.setEnabled(true);
                     }
+
                     checkOut.setEnabled(true);
                 }
                 break;
+
 
             case "Checkout":
                 FormEvent fe = new FormEvent(e,userSelected);
                 if(formListener != null){
                     formListener.formEventTrigger(fe);
+                }
+                for (JCheckBox checkBox : burgerToppings) {
+                    checkBox.setEnabled(false);  // Disable toppings after selection
                 }
                 checkOut.setEnabled(false);
                 printSaveBtn.setEnabled(true);
@@ -244,12 +253,12 @@ public class FormPanel extends JPanel implements ActionListener {
     }
 
     public void checkBoxInitialization(){
-        JCheckBox tomato = new JCheckBox();
-        JCheckBox lettuce = new JCheckBox();
-        JCheckBox cheese = new JCheckBox();
-        JCheckBox carrot = new JCheckBox();
-        JCheckBox greenPepper = new JCheckBox();
-        JCheckBox olives = new JCheckBox();
+        JCheckBox tomato = new JCheckBox("Tomato");
+        JCheckBox lettuce = new JCheckBox("Lettuce");
+        JCheckBox cheese = new JCheckBox("Cheese");
+        JCheckBox carrot = new JCheckBox("Carrot");
+        JCheckBox greenPepper = new JCheckBox("Green Pepper");
+        JCheckBox olives = new JCheckBox("Olives");
 
         burgerToppings.add(tomato);
         burgerToppings.add(lettuce);
@@ -257,43 +266,45 @@ public class FormPanel extends JPanel implements ActionListener {
         burgerToppings.add(carrot);
         burgerToppings.add(greenPepper);
         burgerToppings.add(olives);
-
     }
+
     private void saveBillToDatabase() {
         // Calculate the total and netTotal (including tax)
         double total = userSelected.getPrice();
-        for (JCheckBox checkBox : burgerToppings) {
-            if (checkBox.isSelected()) {
-                total += Fridge.prepareToppings().get(burgerToppings.indexOf(checkBox)).getPrice();
-            }
-        }
-        double tax = total * 0.15;
-        double netTotal = total + tax;
-
-        String sql = "INSERT INTO bills(burger_name, toppings, price, net_total) VALUES(?, ?, ?, ?)";
-
         StringBuilder toppings = new StringBuilder();
+
+        // Loop through the checkboxes and add the selected ones
         for (JCheckBox checkBox : burgerToppings) {
             if (checkBox.isSelected()) {
                 toppings.append(checkBox.getText()).append(", ");
+                total += Fridge.prepareToppings().get(burgerToppings.indexOf(checkBox)).getPrice();
             }
         }
+
+        // Remove last comma and space if toppings were selected
         if (toppings.length() > 0) {
-            toppings.setLength(toppings.length() - 2); // Remove last comma and space
+            toppings.setLength(toppings.length() - 2); // Remove the trailing comma
         }
+
+        double tax = total * 0.15;
+        double netTotal = total + tax;
+
+        // SQL insert
+        String sql = "INSERT INTO bills(burger_name, toppings, price, net_total) VALUES(?, ?, ?, ?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, userSelected.getName());
-            pstmt.setString(2, toppings.toString());
+            pstmt.setString(2, toppings.toString()); // Save the selected toppings
             pstmt.setDouble(3, userSelected.getPrice());
-            pstmt.setDouble(4, netTotal); // Save the netTotal
+            pstmt.setDouble(4, netTotal); // Save the net total
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Bill saved to SQLite database");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
 
     private void clearInputs() {

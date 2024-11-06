@@ -18,6 +18,9 @@ public class Burger {
     public String getName() {
         return name;
     }
+    public void clearToppings() {
+        this.toppings.clear();  // Clears the toppings list
+    }
 
 
 
