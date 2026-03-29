@@ -67,11 +67,12 @@ public class OrderPanel extends JPanel {
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
         p.setBackground(PANEL_BG);
-        p.setPreferredSize(new Dimension(350, 0));
+        p.setPreferredSize(new Dimension(380, 0));
         p.setBorder(sectionBorder("Menu"));
 
         // Category filter
         JPanel filterRow = row();
+        filterRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         filterRow.add(label("Category:", FONT_BOLD));
         categoryFilter = new JComboBox<>(new String[]{"All", "Veg", "Non-Veg", "Premium"});
         categoryFilter.setFont(FONT_BODY);
@@ -95,18 +96,21 @@ public class OrderPanel extends JPanel {
         refreshMenu();
 
         JScrollPane menuScroll = new JScrollPane(menuList);
-        menuScroll.setPreferredSize(new Dimension(330, 210));
+        menuScroll.setPreferredSize(new Dimension(360, 210));
         menuScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 210));
-        menuScroll.setAlignmentX(LEFT_ALIGNMENT);
+        menuScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         p.add(menuScroll);
         p.add(vgap(8));
 
         // Toppings
-        p.add(buildToppingsPanel());
+        JPanel toppingsPanel = buildToppingsPanel();
+        toppingsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        p.add(toppingsPanel);
         p.add(vgap(8));
 
         // Qty + Add to Cart
         JPanel addRow = row();
+        addRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         addRow.add(label("Qty:", FONT_BOLD));
         qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 20, 1));
         qtySpinner.setPreferredSize(new Dimension(55, 28));
@@ -123,14 +127,13 @@ public class OrderPanel extends JPanel {
     private JPanel buildToppingsPanel() {
         JPanel wrap = new JPanel(new BorderLayout());
         wrap.setBackground(PANEL_BG);
-        wrap.setAlignmentX(LEFT_ALIGNMENT);
         wrap.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(SAFFRON_LT), "Extras / Toppings",
                 TitledBorder.LEFT, TitledBorder.TOP, FONT_BOLD, SAFFRON));
 
-        JPanel grid = new JPanel(new GridLayout(0, 2, 4, 2));
+        JPanel grid = new JPanel(new GridLayout(0, 1, 4, 4));
         grid.setBackground(Color.WHITE);
-        grid.setBorder(BorderFactory.createEmptyBorder(4, 6, 4, 6));
+        grid.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
         toppingBoxes.clear();
         String sym = AppConfig.getCurrencySymbol();
         for (Topping t : MenuManager.getToppings()) {
@@ -142,7 +145,7 @@ public class OrderPanel extends JPanel {
             grid.add(cb);
         }
         JScrollPane sc = new JScrollPane(grid);
-        sc.setPreferredSize(new Dimension(330, 110));
+        sc.setPreferredSize(new Dimension(360, 150));
         sc.setBorder(null);
         wrap.add(sc, BorderLayout.CENTER);
         return wrap;

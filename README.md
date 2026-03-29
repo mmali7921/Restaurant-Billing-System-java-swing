@@ -34,9 +34,18 @@ To run the BurgerWala POS logic from your terminal:
    ```bash
    javac *.java
    ```
-3. Launch the App:
+3. Download the SQLite JDBC driver (if not already present):
    ```bash
-   java App
+   curl -L -O "https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.41.2.2/sqlite-jdbc-3.41.2.2.jar"
+   ```
+4. Launch the App with the database driver in the classpath:
+   **Mac/Linux:**
+   ```bash
+   java -cp ".:sqlite-jdbc-3.41.2.2.jar" App
+   ```
+   **Windows:**
+   ```bash
+   java -cp ".;sqlite-jdbc-3.41.2.2.jar" App
    ```
 
 *(Alternatively, you can open the project root in an IDE like IntelliJ IDEA or Eclipse and run `App.java` directly.)*
