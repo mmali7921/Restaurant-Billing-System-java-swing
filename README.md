@@ -1,77 +1,57 @@
-# BurgerWala POS System
+# 🍔 BurgerWala POS System
 
-A fully-featured, production-ready restaurant Point of Sale (POS) system built with Java Swing and SQLite. Originally a college assignment, this project has been significantly upgraded to support multi-item cart management, receipt printing, Indian GST compilation, order history tracking, and a secure admin panel.
+## Project Title
+**BurgerWala Point of Sale (POS): A Production-Ready Restaurant Billing Solution**
 
-## Features
+## Problem Statement
+The original application was a basic, hardcoded college assignment demonstrating a simple McDonald's ordering flow for a single burger. The primary objective of this project was to upgrade that basic simulation into a fully functional, robust, and mathematically sound Point of Sale (POS) system ready for real-world deployment in an Indian AC restaurant context. 
 
-- **Multi-item Cart Flow**: Add multiple burgers with custom quantities to a single order.
-- **Dynamic Category Menu**: Browse items filtered by 'Veg', 'Non-Veg', and 'Premium'. 
-- **Receipts & Printing**: Auto-generated GST-compliant invoices with an option to print to a physical printer or save as `.txt`.
-- **Order History**: Check all past orders using a robust `JTable` view, complete with real-time daily revenue tracking.
-- **Admin Settings**: A PIN-protected configuration panel to customize restaurant name, GSTIN, and tagline. 
-- **Persistence**: All orders and config seamlessly managed using robust SQLite integration `DatabaseManager`.
-- **UI Enhancements**: Utilizes Java's 'Nimbus' Look and Feel, complete with a tabbed layout, dynamic Top Toolbar containing a live digital clock, metrics, and visually appealing component design.
+The upgraded system needed to dynamically manage a multi-item cart, compute accurate Indian GST metrics (9% CGST + 9% SGST), preserve data across sessions natively natively using SQLite, recall historical order data for basic analytics, issue literal tax invoices digitally/physically, and safeguard global properties behind an administrator PIN.
 
-## Technologies Used
+## Tools and Technologies Used
+*   **Java 8+ (Core)**: Primary application logic, object-oriented models, and math computations.
+*   **Java Swing (Nimbus LAF)**: The native Graphical User Interface (GUI) framework utilized for creating the interactive tabbed menus, JTables, and forms.
+*   **SQLite (JDBC)**: Lightweight, file-based relational database used for persisting orders, transactions, and session items automatically in `burgernama.db`.
+*   **Java Print API**: Native hardware integration library for securely funneling rendered text invoices to physical desktop printers.
+*   **Event Listeners**: Utilized custom Callback interfaces to cleanly parse state between loosely coupled UI panels.
 
-- **Java Swing**: Rich graphical user interface (GUI) with tabbed panes, customized `JList` renderers, and responsive `BorderLayout` design.
-- **SQLite (JDBC)**: Robust database engine for storing `orders` and `order_items` across sessions and preserving configuration logic.
-- **Java Print API**: Hardware integration for issuing literal tax invoices to physical printers via standard device dialogs. 
-- **Java 8+**: Core language logic for models, financial math, and callback event handling.
-
-## Getting Started
-
-### Prerequisites
-- **Java JDK 8 or higher** installed.
-- Ensure the `sqlite-jdbc` connector is set in your compiler classpath if you're not utilizing a native Java bundle that incorporates it. 
-
-### Installation & Run
-
-1. **Clone the repository**:
+## Installation Steps
+1. **Ensure Prerequisites**: Verify you have the **Java Development Kit (JDK 8 or higher)** installed on your machine.
+2. **Clone Repository**:
    ```bash
    git clone https://github.com/muhammedali/Restaurant-Billing-System-java-swing.git
    cd Restaurant-Billing-System-java-swing
    ```
+3. **Database Setup**: No manual configuration is required. The system will automatically construct `burgernama.db` and initialize the proper schema on first launch.
 
-2. **Compile**:
-   Navigate to the `src` folder and compile the app:
+## Execution Procedure
+To run the BurgerWala POS logic from your terminal:
+1. Navigate to the source folder:
    ```bash
    cd src
+   ```
+2. Compile all `.java` application files:
+   ```bash
    javac *.java
    ```
-
-3. **Run**:
+3. Launch the App:
    ```bash
    java App
    ```
 
-## Database Schema
+*(Alternatively, you can open the project root in an IDE like IntelliJ IDEA or Eclipse and run `App.java` directly.)*
 
-The project automatically initializes `burgernama.db` using the following central schema:
+## Output Screenshots
+*(Please capture and place your screenshots in an adjacent `docs/` folder, then link them below for your final submission presentation.)*
 
-```sql
-CREATE TABLE orders (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    order_number TEXT NOT NULL,
-    table_number INTEGER,
-    cashier_name TEXT,
-    order_time TEXT,
-    status TEXT,
-    subtotal REAL,
-    cgst REAL,
-    sgst REAL,
-    total REAL
-);
+*   **New Order Checkout Flow**:
+    ![Order Flow Placeholder](docs/order_panel.png)
+*   **Receipt Verification**:
+    ![Receipt Placeholder](docs/receipt_panel.png)
+*   **Historical Data Tracking**:
+    ![History Placeholder](docs/history_panel.png)
+*   **Admin Configurations**:
+    ![Admin Placeholder](docs/admin_panel.png)
 
-CREATE TABLE order_items (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    order_id INTEGER,
-    item_name TEXT,
-    quantity INTEGER,
-    item_price REAL,
-    toppings TEXT,
-    toppings_cost REAL,
-    line_total REAL,
-    FOREIGN KEY(order_id) REFERENCES orders(id)
-);
-```
+## Conclusion
+This refactor successfully bridged the gap between a foundational educational assignment and a viable, production-grade enterprise concept. By normalizing data inside an SQLite engine, overhauling the GUI cleanly into categorized tabs, and incorporating strict financial compliance (18% GST tracking), the BurgerWala POS system securely demonstrates the core pillars of transactional business software.
