@@ -1,0 +1,24 @@
+                 BurgerWala
+            Asli Swad, Har Baar!
+        MG Road, Bengaluru - 560001
+           GSTIN: 27AABCS1429B1Z1
+============================================
+Order No  : BN-260329-001
+Table     : Table 1
+Cashier   : Admin
+Date/Time : 29-Mar-2026  03:57 PM
+--------------------------------------------
+Item                     Qty      Amount
+--------------------------------------------
+Loaded Smash Burger        1  ₹  329.00
+  Extras: Extra Cheese           ₹ 40.00
+--------------------------------------------
+                       Subtotal :  ₹  369.00
+                      CGST @9.0%:  ₹   33.21
+                      SGST @9.0%:  ₹   33.21
+============================================
+                       TOTAL    :  ₹  435.42
+============================================
+       Thank you for dining with us!
+           Please visit again  ❤
+               *Tax Invoice*

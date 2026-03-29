@@ -1,0 +1,24 @@
+                 BurgerWala
+            Asli Swad, Har Baar!
+        MG Road, Bengaluru - 560001
+           GSTIN: 27AABCS1429B1Z1
+============================================
+Order No  : BN-260329-002
+Table     : Table 1
+Cashier   : Admin
+Date/Time : 29-Mar-2026  03:58 PM
+--------------------------------------------
+Item                     Qty      Amount
+--------------------------------------------
+Signature Lamb             1  ₹  349.00
+  Extras: Onion Rings, Extra Sauce ₹ 50.00
+--------------------------------------------
+                       Subtotal :  ₹  399.00
+                      CGST @9.0%:  ₹   35.91
+                      SGST @9.0%:  ₹   35.91
+============================================
+                       TOTAL    :  ₹  470.82
+============================================
+       Thank you for dining with us!
+           Please visit again  ❤
+               *Tax Invoice*

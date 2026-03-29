@@ -1,0 +1,24 @@
+                 BurgerWala
+            Asli Swad, Har Baar!
+        MG Road, Bengaluru - 560001
+           GSTIN: 27AABCS1429B1Z1
+============================================
+Order No  : BN-260329-003
+Table     : Table 1
+Cashier   : Admin
+Date/Time : 29-Mar-2026  03:58 PM
+--------------------------------------------
+Item                     Qty      Amount
+--------------------------------------------
+Veggie Crunch              1  ₹  159.00
+  Extras: Jalapenos, Tomato, Lettuc... ₹ 85.00
+--------------------------------------------
+                       Subtotal :  ₹  244.00
+                      CGST @9.0%:  ₹   21.96
+                      SGST @9.0%:  ₹   21.96
+============================================
+                       TOTAL    :  ₹  287.92
+============================================
+       Thank you for dining with us!
+           Please visit again  ❤
+               *Tax Invoice*
