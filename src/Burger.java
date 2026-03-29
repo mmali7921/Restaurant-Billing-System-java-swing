@@ -1,40 +1,42 @@
 import java.util.ArrayList;
 
+/**
+ * Base burger model — extended with category for menu grouping.
+ * Backward-compatible: existing subclasses (BasicBurger etc.) still compile.
+ */
 public class Burger {
-    private Double price;
-    private String name;
 
+    private final String name;
+    private final Double price;
+    private final String category;
     private ArrayList<Topping> toppings = new ArrayList<>();
 
+    // ── Constructors ────────────────────────────────────────────────────────────
+
+    /** Legacy constructor used by subclasses (BasicBurger, HealthyBurger, DeluxeBurger). */
     Burger(String name, Double price) {
-        this.name = name;
-        this.price = price;
+        this(name, price, "General");
     }
 
-    public Double getPrice() {
-        return price;
+    /** Full constructor used by MenuManager. */
+    Burger(String name, Double price, String category) {
+        this.name     = name;
+        this.price    = price;
+        this.category = category;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void clearToppings() {
-        this.toppings.clear();  // Clears the toppings list
-    }
+    // ── Toppings ────────────────────────────────────────────────────────────────
 
+    public void setToppings(Topping topping) { toppings.add(topping); }
+    public void clearToppings()              { toppings.clear(); }
+    public ArrayList<Topping> getToppings()  { return toppings; }
 
+    // ── Getters ─────────────────────────────────────────────────────────────────
 
-
-    public void setToppings(Topping topping) {
-        this.toppings.add(topping);
-    }
-
-    public ArrayList<Topping> getToppings() {
-        return this.toppings;
-    }
+    public String getName()     { return name; }
+    public Double getPrice()    { return price; }
+    public String getCategory() { return category; }
 
     @Override
-    public String toString() {
-        return name; // This will show only the name of the burger in the selection box
-    }
+    public String toString() { return name; }
 }

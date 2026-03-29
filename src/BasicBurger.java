@@ -2,7 +2,7 @@ public class BasicBurger extends Burger {
     private String rollType;
 
     BasicBurger() {
-        super("Basic Burger", 4.50);
+        super("Basic Burger", 89.00, "Veg");
         this.rollType = "White";
     }
 
@@ -12,7 +12,7 @@ public class BasicBurger extends Burger {
 
     @Override
     public String toString() {
-        return String.format("%s with %s :- \nCost:  $%.2f \n",
-                this.getName(),this.getRollType(),this.getPrice());
+        return String.format("%s with %s :- \nCost:  %s%.2f \n",
+                this.getName(),this.getRollType(),AppConfig.getCurrencySymbol(),this.getPrice());
     }
 }
