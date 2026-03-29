@@ -54,9 +54,9 @@ public class MainFrame extends JFrame {
         tabbedPane.setFont(new Font("SansSerif", Font.BOLD, 14));
         tabbedPane.setBackground(new Color(245, 245, 245));
 
-        tabbedPane.addTab("  🍔 New Order  ", splitPane);
-        tabbedPane.addTab("  📋 Order History  ", historyPanel);
-        tabbedPane.addTab("  ⚙ Admin Settings  ", adminPanel);
+        tabbedPane.addTab("  New Order  ", splitPane);
+        tabbedPane.addTab("  Order History  ", historyPanel);
+        tabbedPane.addTab("  Admin Settings  ", adminPanel);
 
         // Tab change listener to refresh history
         tabbedPane.addChangeListener(e -> {

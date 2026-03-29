@@ -24,7 +24,7 @@ public class ReceiptPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // ── Header label ───────────────────────────────────────────────────────
-        JLabel title = new JLabel("🧾  Receipt", SwingConstants.CENTER);
+        JLabel title = new JLabel("Receipt", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 16));
         title.setForeground(SAFFRON);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 6, 0));
@@ -50,9 +50,9 @@ public class ReceiptPanel extends JPanel {
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 8));
         btnPanel.setOpaque(false);
 
-        JButton printBtn = makeBtn("🖨  Print", SAFFRON,    Color.WHITE);
-        JButton saveBtn  = makeBtn("💾  Save as TXT", BLUE_BTN, Color.WHITE);
-        JButton clearBtn = makeBtn("✕  Clear", new Color(96, 96, 96), Color.WHITE);
+        JButton printBtn = makeBtn("Print", SAFFRON,    Color.WHITE);
+        JButton saveBtn  = makeBtn("Save as TXT", BLUE_BTN, Color.WHITE);
+        JButton clearBtn = makeBtn("Clear", new Color(96, 96, 96), Color.WHITE);
 
         printBtn.addActionListener(e -> {
             if (!lastReceiptText.isEmpty()) ReceiptPrinter.printReceipt(lastReceiptText);

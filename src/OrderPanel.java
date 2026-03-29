@@ -68,7 +68,7 @@ public class OrderPanel extends JPanel {
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
         p.setBackground(PANEL_BG);
         p.setPreferredSize(new Dimension(350, 0));
-        p.setBorder(sectionBorder("☰  Menu"));
+        p.setBorder(sectionBorder("Menu"));
 
         // Category filter
         JPanel filterRow = row();
@@ -111,7 +111,7 @@ public class OrderPanel extends JPanel {
         qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 20, 1));
         qtySpinner.setPreferredSize(new Dimension(55, 28));
         addRow.add(qtySpinner);
-        JButton addBtn = buildBtn("＋  Add to Cart", SAFFRON, Color.WHITE);
+        JButton addBtn = buildBtn("+ Add to Cart", SAFFRON, Color.WHITE);
         addBtn.addActionListener(e -> addToCart());
         addRow.add(Box.createHorizontalStrut(8));
         addRow.add(addBtn);
@@ -155,7 +155,7 @@ public class OrderPanel extends JPanel {
     private JPanel buildCartPanel() {
         JPanel p = new JPanel(new BorderLayout(8, 8));
         p.setBackground(PANEL_BG);
-        p.setBorder(sectionBorder("🛒  Current Order"));
+        p.setBorder(sectionBorder("Current Order"));
 
         // Order info (table + cashier)
         JPanel infoRow = row();
@@ -204,7 +204,7 @@ public class OrderPanel extends JPanel {
         outer.setBackground(PANEL_BG);
 
         // Remove button
-        JButton removeBtn = buildBtn("✕  Remove Selected", RED_BTN, Color.WHITE);
+        JButton removeBtn = buildBtn("Remove Selected", RED_BTN, Color.WHITE);
         removeBtn.addActionListener(e -> removeSelected());
         JPanel removeRow = row();
         removeRow.add(removeBtn);
@@ -227,7 +227,7 @@ public class OrderPanel extends JPanel {
         totals.add(label("Subtotal:",                                FONT_BOLD)); totals.add(subtotalLabel);
         totals.add(label(String.format("CGST @%.0f%%:", AppConfig.getCGST()*100), FONT_BODY)); totals.add(cgstLabel);
         totals.add(label(String.format("SGST @%.0f%%:", AppConfig.getSGST()*100), FONT_BODY)); totals.add(sgstLabel);
-        totals.add(label("GRAND TOTAL:",                             FONT_TOTAL)); totals.add(totalLabel);
+        totals.add(label("TOTAL:",                                   FONT_TOTAL)); totals.add(totalLabel);
 
         outer.add(totals, BorderLayout.CENTER);
 
@@ -235,7 +235,7 @@ public class OrderPanel extends JPanel {
         JPanel btnRow = row();
         JButton clearBtn = buildBtn("Clear Order", new Color(96,96,96), Color.WHITE);
         clearBtn.addActionListener(e -> clearCart());
-        checkoutBtn = buildBtn("✔  Checkout", GREEN_BTN, Color.WHITE);
+        checkoutBtn = buildBtn("Checkout", GREEN_BTN, Color.WHITE);
         checkoutBtn.setFont(FONT_TITLE);
         checkoutBtn.addActionListener(e -> checkout());
         btnRow.add(clearBtn);

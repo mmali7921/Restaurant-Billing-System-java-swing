@@ -20,7 +20,7 @@ public class Toolbar extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         // Let's create a nice styled title
-        textLabel = new JLabel("🏪 " + AppConfig.getRestaurantName() + " POS");
+        textLabel = new JLabel(AppConfig.getRestaurantName() + " POS");
         textLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         textLabel.setForeground(Color.WHITE);
 

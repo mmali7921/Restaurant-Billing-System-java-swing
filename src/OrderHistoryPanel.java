@@ -27,7 +27,7 @@ public class OrderHistoryPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // ── Title ──────────────────────────────────────────────────────────────
-        JLabel title = new JLabel("📋  Order History", SwingConstants.CENTER);
+        JLabel title = new JLabel("Order History", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 16));
         title.setForeground(SAFFRON);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 6, 0));
@@ -83,7 +83,7 @@ public class OrderHistoryPanel extends JPanel {
         summaryLabel = new JLabel("Loading...");
         summaryLabel.setFont(FONT_BOLD);
 
-        JButton refreshBtn = makeBtn("↻  Refresh", SAFFRON, Color.WHITE);
+        JButton refreshBtn = makeBtn("Refresh", SAFFRON, Color.WHITE);
         refreshBtn.addActionListener(e -> loadData());
 
         bottom.add(summaryLabel);

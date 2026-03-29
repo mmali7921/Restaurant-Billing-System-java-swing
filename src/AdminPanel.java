@@ -25,7 +25,7 @@ public class AdminPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // ── Title ──────────────────────────────────────────────────────────────
-        JLabel title = new JLabel("⚙  Settings & Admin", SwingConstants.CENTER);
+        JLabel title = new JLabel("Settings & Admin", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 16));
         title.setForeground(SAFFRON);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 6, 0));
@@ -69,7 +69,7 @@ public class AdminPanel extends JPanel {
         pinField = new JPasswordField(AppConfig.getAdminPin(), 15);
         p.add(pinField);
 
-        JButton saveBtn = new JButton("💾  Save Changes");
+        JButton saveBtn = new JButton("Save Changes");
         saveBtn.setFont(FONT_BOLD);
         saveBtn.setBackground(new Color(46, 125, 50));
         saveBtn.setForeground(Color.WHITE);
